@@ -1,0 +1,28 @@
+<template>
+  <nav id="navbar" class="navbar navbar-expand-sm">
+
+    <router-link to="/" class="navbar-brand mr-auto">Movie App</router-link>
+
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#movie-app" aria-controls="movie-app" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="movie-app">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link to="/" class="nav-link">Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/watch-list" class="nav-link">Watch List</router-link>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: "Navbar"
+};
+</script>
+
+<style lang="scss" scoped></style>
