@@ -1,23 +1,24 @@
 <template>
   <div class="home">
-    <app-nav-bar></app-nav-bar>
+    <app-header></app-header>
+
   </div>
 </template>
 
 <script>
+import HeaderVue from "../components/Header.vue";
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-
-import Navbar from "@/components/Navbar.vue";
+// import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "Home",
   components: {
-    appNavBar: Navbar
+    appHeader: HeaderVue
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
+  
 </style>
