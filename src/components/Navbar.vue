@@ -1,8 +1,18 @@
 <template>
-  <nav id="navbar" class="navbar navbar-expand-sm mt-3">
-    <router-link to="/" class="navbar-brand mr-auto">Movie App</router-link>
+  <nav id="navbar" class="navbar navbar-expand-sm  mt-3">
+    <router-link to="/" class="navbar-brand mr-auto text-white"
+      >Movie App</router-link
+    >
 
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#movie-app" aria-controls="movie-app" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      type="button"
+      class="navbar-toggler"
+      data-toggle="collapse"
+      data-target="#movie-app"
+      aria-controls="movie-app"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="movie-app">
@@ -11,7 +21,9 @@
           <router-link to="/" class="nav-link ">Home</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/watch-list" class="nav-link">Watch List</router-link>
+          <router-link to="/watch-list" class="nav-link"
+            >Watch List</router-link
+          >
         </li>
       </ul>
     </div>
@@ -27,6 +39,7 @@ export default {
 <style lang="scss" scoped>
 .navbar {
   border-bottom: 1px solid #474747;
+  overflow: hidden;
 }
 
 .nav-link {
@@ -36,10 +49,15 @@ export default {
   // background-color: #282128;
   padding: 0.3rem 1.7rem !important;
   border-radius: 5rem;
-  border: 1px solid #474747;
+  border: 1px solid #fff;
+  transition: all 0.2s;
+
+  overflow: hidden;
 
   &:hover {
-    background-color: #413b41;
+    background-color: transparent;
+    transform: translateY(-0.3rem);
+    // background-color: #413b41;
   }
 }
 </style>
