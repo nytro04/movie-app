@@ -18,27 +18,18 @@
             eligendi quidem praesentium dolore asperiores, similique soluta vero
             hic. Accusantium, esse...
           </p>
-          <router-link to="" tag="button" class="link__btn"
-            >See Movie →</router-link
-          >
+          <router-link to="" tag="button" class="link__btn">See Movie →</router-link>
 
           <div class="header__rating py-5">
             <div>
-              <img
-                src="../assets/imdb.png"
-                alt=""
-                class="img-fluid header__rating-logo"
-              />
-              <span class="ml-2">IMDB</span>
+              <img src="../assets/imdb.png" alt="" class="img-fluid header__rating-logo" />
+              <span class="ml-2 pb-5">IMDB</span>
+              <div class="step">7.8</div>
             </div>
             <div class="mr-5">
-              <img
-                src="../assets/meta.png"
-                alt=""
-                class="img-fluid header__rating-logo"
-              />
-              <span class="ml-2">Metacritic</span>
-              <!-- <p>7.8</p> -->
+              <img src="../assets/meta.png" alt="" class="img-fluid header__rating-logo" />
+              <span class="ml-2 pb-4">Metacritic</span>
+              <div class="step">7.8</div>
             </div>
           </div>
         </div>
@@ -123,6 +114,19 @@ export default {
       height: 1.8rem;
       width: auto;
     }
+  }
+
+  .step {
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 1.5rem;
+    border: 1px solid #e0b955;
+    width: 3rem;
+    line-height: 3rem;
+    background-color: transparent;
+    // background-color: #e0b955;
+    padding-left: 0.7rem;
+    margin: 1rem auto;
   }
 }
 </style>

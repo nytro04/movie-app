@@ -4,7 +4,6 @@
       <h3>Movies</h3>
       <div class="btn-group py-5 " role="group" aria-label="Basic example">
         <button @click="popular" class="btn btn-warning">Popular</button>
-        <!-- <button @click="latest" class="btn btn-light">Now PlAYING</button> -->
         <button @click="topRated" class="btn btn-light">Top Rated</button>
         <button @click="upcoming" class="btn btn-light">Upcoming</button>
       </div>
@@ -36,7 +35,8 @@ export default {
   name: "MoviesList",
   data() {
     return {
-      categoryName: ""
+      categoryName: "",
+      buttonColor: ""
     };
   },
   methods: {
@@ -45,9 +45,9 @@ export default {
     },
 
     popular() {
-      // console.log("popular click");
-
       this.categoryName = "popular";
+
+      this.buttonColor = "warning";
 
       this.$emit("popularCategory", this.categoryName);
     },
@@ -59,10 +59,14 @@ export default {
     topRated() {
       this.categoryName = "top_rated";
 
+      this.buttonColor = "warning";
+
       this.$emit("topRatedCategory", this.categoryName);
     },
     upcoming() {
       this.categoryName = "upcoming";
+
+      this.buttonColor = "warning";
 
       this.$emit("upcomingCategory", this.categoryName);
     }
