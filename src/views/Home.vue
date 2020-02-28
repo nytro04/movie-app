@@ -29,18 +29,7 @@ export default {
       tvSeries: []
     };
   },
-  // watch: {
-  //   updateCategory(category) {
-  //     this.category = category;
-  //   }
-  // },
 
-  computed: {
-    // updateCategory(category) {
-    //   console.log(category);
-    //   return null;
-    // }
-  },
   created() {
     this.fetchMovies();
     this.fetchTvMovies();
@@ -70,7 +59,7 @@ export default {
 
         this.movies = res.data.results;
 
-        // console.log(res);
+        console.log(res);
         // console.log(this.movies);
       } catch (error) {
         console.log(error);
