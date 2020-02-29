@@ -10,17 +10,20 @@
       <!-- <h3>Most Popular Movies</h3> -->
       <div class="row" v-if="movieList">
         <div class="col-md-3" v-for="movie in movieList" :key="movie.id">
-          <router-link :to="{name: 'MovieDetails' , params: {id: movie.id }}">
-            <img :src="getImgUrl(movie.poster_path)" alt="movie poster" class="img-fluid my-3 image" />
+          <router-link :to="{ name: 'MovieDetails', params: { id: movie.id } }">
+            <img
+              :src="getImgUrl(movie.poster_path)"
+              alt="movie poster"
+              class="img-fluid my-3 image"
+            />
             <!-- <p>{{ movie.title }}</p> -->
           </router-link>
         </div>
       </div>
-      <button class="btn-sm btn-warning mt-4">See More → </button>
+      <button class="btn-sm btn-warning mt-4">See More →</button>
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
