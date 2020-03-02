@@ -3,6 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import VModal from "vue-js-modal";
+import VueYoutube from "vue-youtube";
+
+Vue.use(VueYoutube);
 
 import VueYouTubeEmbed from "vue-youtube-embed";
 
@@ -17,6 +20,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount("#app");
-
-// API KEY
-// 77d76b97b95d4571e032dc8271077f7b

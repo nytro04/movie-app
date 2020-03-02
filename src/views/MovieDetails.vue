@@ -16,6 +16,7 @@
       <div class="row py-3">
         <div class="col-md-4">
           <div>
+            <!-- Genres -->
             <i class="fas fa-film mr-2 pb-3 text-warning"></i>
             <span v-for="genre in movie.genres" :key="genre.id" class="mr-2">
               {{ genre.name }}
@@ -42,7 +43,7 @@
           </div>
           <div class="d-flex justify-content-start">
             <p class="mr-4 text-warning">Duration :</p>
-            <p>{{ movie.runtime }} mins</p>
+            <p>{{ movie.runtime | getDurationStr }}</p>
           </div>
           <div class="d-flex">
             <div class="mr-4 text-warning">Ratings :</div>
@@ -56,32 +57,26 @@
             class="img-fluid image"
           />
         </div>
-        <div class="col-md-4">
-          <!-- <div v-for="video in movieVideos" :key="video.id"> -->
-          <div class="row" v-for="i in rowCount" :key="i">
-            <!-- <span v-for="item in itemsCountInRow(i)" :key="item"> -->
-            <!-- {{ item }} -->
-            <youtube
-              class="col-md-4"
-              v-for="item in itemsCountInRow(i)"
-              :key="item"
-              player-height="300"
-              player-width="500"
-              @click="show"
-              :video-id="item.key"
-            >
-              <!-- <modal
-                transition="nice-modal-fade"
-                :width="50"
-                :height="50"
-                @before-open="beforeOpen"
-                @before-close="beforeClose"
-                name="youtube"
-              >
-                <button @click="show">show</button>
+        <div class="col-md-4 mt-3">
+          <div class="row" v-for="chunk in castChunks" :key="chunk.id">
+            <div class="col-md-4" v-for="item in chunk" :key="item.id">
+              <img
+                :src="getProfileUrl(item.profile_path)"
+                alt=""
+                class="img-fluid cast-image"
+              />
+              <p>{{ item.name }}</p>
+              <!-- <p>{{ item }}</p> -->
+              <!-- <modal name="youtube">
+                <youtube
+                  class="py-2 px-5 mx-3"
+                  player-height="auto"
+                  player-width="auto"
+                  @click="show"
+                  :video-id="item.key"
+                ></youtube>
               </modal> -->
-            </youtube>
-            <!-- </span> -->
+            </div>
           </div>
         </div>
       </div>
@@ -92,7 +87,7 @@
 <script>
 import NavbarVue from "../components/Navbar.vue";
 import axios from "axios";
-// import _ from "lodash";
+import _ from "lodash";
 
 export default {
   name: "MovieDetails",
@@ -103,6 +98,7 @@ export default {
     return {
       // moviedId: "" * 1,
       itemsPerRow: 3,
+      casts: [],
       movie: {},
       movieVideos: []
     };
@@ -111,11 +107,24 @@ export default {
   created() {
     this.fetchMovie();
     this.fetchMovieVideo();
+    this.fetchCast();
   },
 
   computed: {
-    rowCount() {
-      return Math.ceil(this.movieVideos.length / this.itemsPerRow);
+    productChunks() {
+      return _.chunk(Object.values(this.movieVideos), this.itemsPerRow);
+    },
+    castChunks() {
+      return _.chunk(Object.values(this.casts), this.itemsPerRow);
+    }
+  },
+
+  filters: {
+    getDurationStr(mins) {
+      let h = Math.floor(mins / 60);
+      let m = mins % 60;
+      m = m < 10 ? "0" + m : m;
+      return `${h}h ${m}m`;
     }
   },
 
@@ -123,10 +132,13 @@ export default {
     getImgUrl(imgLink) {
       return `https://image.tmdb.org/t/p/w342/${imgLink}`;
     },
-
-    itemsCountInRow(index) {
-      return this.movieVideos.slice((index - 1) * this.itemsPerRow);
+    getProfileUrl(imgLink) {
+      return `https://image.tmdb.org/t/p/w342/${imgLink}`;
     },
+
+    // itemsCountInRow(index) {
+    //   return this.movieVideos.slice((index - 1) * this.itemsPerRow);
+    // },
     async fetchMovie() {
       //   https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
       const baseUrl = `https://api.themoviedb.org/3/movie`;
@@ -175,26 +187,53 @@ export default {
         console.log(error);
       }
     },
+    async fetchCast() {
+      //   https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+      const baseUrl = `https://api.themoviedb.org/3/movie`;
 
-    beforeOpen(event) {
-      console.log(event);
-      // Set the opening time of the modal
-      this.time = Date.now();
-    },
-    beforeClose(event) {
-      console.log(event);
-      // If modal was open less then 5000 ms - prevent closing it
-      if (this.time + this.duration < Date.now()) {
-        event.stop();
+      const { id } = this.$route.params;
+
+      // this.moviedId = id;
+
+      // console.log(typeof id, id);
+      try {
+        const res = await axios.get(`${baseUrl}/${id}/credits`, {
+          params: {
+            api_key: process.env.VUE_APP_MOVIE_DB_API_KEY,
+            language: process.env.VUE_APP_API_LANG
+          }
+        });
+
+        // console.log(res.data.cast);
+
+        // slice to return only first six casts
+        this.casts = res.data.cast.slice(0, 6);
+
+        console.log(this.casts);
+      } catch (error) {
+        console.log(error);
       }
-    },
-
-    show() {
-      this.$modal.show("youtube");
-    },
-    hide() {
-      this.$modal.hide("youtube");
     }
+
+    // beforeOpen(event) {
+    //   console.log(event);
+    //   // Set the opening time of the modal
+    //   this.time = Date.now();
+    // },
+    // beforeClose(event) {
+    //   console.log(event);
+    //   // If modal was open less then 5000 ms - prevent closing it
+    //   if (this.time + this.duration < Date.now()) {
+    //     event.stop();
+    //   }
+    // },
+
+    // show() {
+    //   this.$modal.show("youtube");
+    // },
+    // hide() {
+    //   this.$modal.hide("youtube");
+    // }
   }
 };
 </script>
@@ -230,13 +269,18 @@ export default {
 
 .image {
   border-radius: 1.5rem;
-  margin: 1rem 5rem;
+  margin: 1rem 5rem 1rem 1rem;
   // padding: 1rem 2rem;
   cursor: pointer;
   transition: all 0.3s;
+  width: 18rem;
 
   &:hover {
     transform: translateY(-0.8rem) scale(1.05);
   }
+}
+
+.cast-image {
+  border-radius: 1rem;
 }
 </style>

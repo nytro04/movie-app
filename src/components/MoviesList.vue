@@ -87,7 +87,7 @@ export default {
 }
 
 .image {
-  border-radius: 5px;
+  border-radius: 1rem;
   cursor: pointer;
   transition: all 0.3s;
 
