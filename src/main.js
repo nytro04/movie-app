@@ -4,6 +4,9 @@ import router from "./router";
 import store from "./store";
 import VModal from "vue-js-modal";
 import VueYoutube from "vue-youtube";
+import VueCarousel from "vue-carousel";
+
+Vue.use(VueCarousel);
 
 Vue.use(VueYoutube);
 

@@ -59,25 +59,36 @@
         </div>
         <div class="col-md-4 mt-3">
           <div class="row" v-for="chunk in castChunks" :key="chunk.id">
-            <div class="col-md-4" v-for="item in chunk" :key="item.id">
+            <div class="col-md-4 cast" v-for="item in chunk" :key="item.id">
               <img
                 :src="getProfileUrl(item.profile_path)"
                 alt=""
-                class="img-fluid cast-image"
+                class="img-fluid cast__image"
               />
-              <p>{{ item.name }}</p>
-              <!-- <p>{{ item }}</p> -->
-              <!-- <modal name="youtube">
-                <youtube
-                  class="py-2 px-5 mx-3"
-                  player-height="auto"
-                  player-width="auto"
-                  @click="show"
-                  :video-id="item.key"
-                ></youtube>
-              </modal> -->
+              <p class="cast__name">{{ item.name }}</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <hr class="line" />
+
+      <div class="container">
+        <div class="videos">
+          <h3 class="pt-5 pb-3">Trailers</h3>
+          <carousel
+            :per-page="1"
+            :navigate-to="someLocalProperty"
+            :mouse-drag="false"
+          >
+            <slide v-for="video in movieVideos" :key="video.id">
+              <youtube
+                class="pt-3 videos__slide d-flex justify-content-center"
+                @click="show"
+                :video-id="video.key"
+              ></youtube>
+            </slide>
+          </carousel>
         </div>
       </div>
     </div>
@@ -86,13 +97,16 @@
 
 <script>
 import NavbarVue from "../components/Navbar.vue";
+import { Carousel, Slide } from "vue-carousel";
 import axios from "axios";
 import _ from "lodash";
 
 export default {
   name: "MovieDetails",
   components: {
-    AppNavbar: NavbarVue
+    AppNavbar: NavbarVue,
+    Carousel,
+    Slide
   },
   data() {
     return {
@@ -214,26 +228,6 @@ export default {
         console.log(error);
       }
     }
-
-    // beforeOpen(event) {
-    //   console.log(event);
-    //   // Set the opening time of the modal
-    //   this.time = Date.now();
-    // },
-    // beforeClose(event) {
-    //   console.log(event);
-    //   // If modal was open less then 5000 ms - prevent closing it
-    //   if (this.time + this.duration < Date.now()) {
-    //     event.stop();
-    //   }
-    // },
-
-    // show() {
-    //   this.$modal.show("youtube");
-    // },
-    // hide() {
-    //   this.$modal.hide("youtube");
-    // }
   }
 };
 </script>
@@ -280,7 +274,25 @@ export default {
   }
 }
 
-.cast-image {
-  border-radius: 1rem;
+.cast {
+  &__image {
+    border-radius: 1rem;
+  }
+
+  &__name {
+    padding-top: 0.8rem !important;
+    font-size: 0.8rem !important;
+    text-align: center;
+  }
+}
+
+.videos {
+  &__slide {
+    margin: 0 auto;
+  }
+}
+
+hr {
+  border-top: 1px solid #ddd;
 }
 </style>
