@@ -24,9 +24,9 @@
             </span>
           </div>
           <p class=""><i class="fas fa-microphone-alt mr-2 mt-4 text-warning"></i>Languages</p>
-          <p class="" v-for="language in movie.spoken_languages" :key="language.iso_639_1">
+          <span class="" v-for="language in movie.spoken_languages" :key="language.iso_639_1">
             {{ language.name }}
-          </p>
+          </span>
           <h5 class=" mt-4 mb-3 text-warning">Summary</h5>
           <p class="test">
             <!-- <i class="far fa-comment-alt mr-5"></i> -->
