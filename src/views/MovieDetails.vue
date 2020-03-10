@@ -17,14 +17,14 @@
         <div class="col-md-4">
           <div>
             <!-- Genres -->
-            <p class="text-center mb-0"><i class="fas fa-film mr-2 pb-3 text-warning"></i> Genres</p>
+            <p class=" mb-0"><i class="fas fa-film mr-2 pb-3 text-warning"></i> Genres</p>
 
-            <span v-for="genre in movie.genres" :key="genre.id" class="mr-2">
+            <span v-for="genre in movie.genres" :key="genre.id" class="mr-2 ">
               {{ genre.name }}
             </span>
           </div>
-          <p class="text-center"><i class="fas fa-microphone-alt mr-2 mt-4 text-warning"></i>Languages</p>
-          <p class="text-center" v-for="language in movie.spoken_languages" :key="language.iso_639_1">
+          <p class=""><i class="fas fa-microphone-alt mr-2 mt-4 text-warning"></i>Languages</p>
+          <p class="" v-for="language in movie.spoken_languages" :key="language.iso_639_1">
             {{ language.name }}
           </p>
           <h5 class=" mt-4 mb-3 text-warning">Summary</h5>
