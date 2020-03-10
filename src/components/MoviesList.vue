@@ -11,11 +11,7 @@
       <div class="row" v-if="movieList">
         <div class="col-md-3" v-for="movie in movieList" :key="movie.id">
           <router-link :to="{ name: 'MovieDetails', params: { id: movie.id } }">
-            <img
-              :src="getImgUrl(movie.poster_path)"
-              alt="movie poster"
-              class="img-fluid my-3 image"
-            />
+            <img :src="getImgUrl(movie.poster_path)" alt="movie poster" class="img-fluid my-3 image" />
             <!-- <p>{{ movie.title }}</p> -->
           </router-link>
         </div>
@@ -83,7 +79,9 @@ export default {
 .list {
   min-height: 100vh;
   background-color: #282128;
+  // background-color: #f7f7f7;
   color: #fff;
+  // color: #000;
 }
 
 .image {

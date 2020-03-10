@@ -17,16 +17,14 @@
         <div class="col-md-4">
           <div>
             <!-- Genres -->
-            <i class="fas fa-film mr-2 pb-3 text-warning"></i>
+            <p class="text-center mb-0"><i class="fas fa-film mr-2 pb-3 text-warning"></i> Genres</p>
+
             <span v-for="genre in movie.genres" :key="genre.id" class="mr-2">
               {{ genre.name }}
             </span>
           </div>
-          <p
-            v-for="language in movie.spoken_languages"
-            :key="language.iso_639_1"
-          >
-            <i class="fas fa-microphone-alt mr-4 text-warning"></i>
+          <p class="text-center"><i class="fas fa-microphone-alt mr-2 mt-4 text-warning"></i>Languages</p>
+          <p class="text-center" v-for="language in movie.spoken_languages" :key="language.iso_639_1">
             {{ language.name }}
           </p>
           <h5 class=" mt-4 mb-3 text-warning">Summary</h5>
@@ -51,20 +49,12 @@
           </div>
         </div>
         <div class="col-md-4">
-          <img
-            :src="getImgUrl(movie.poster_path)"
-            alt=""
-            class="img-fluid image"
-          />
+          <img :src="getImgUrl(movie.poster_path)" alt="" class="img-fluid image" />
         </div>
         <div class="col-md-4 mt-3">
           <div class="row" v-for="chunk in castChunks" :key="chunk.id">
             <div class="col-md-4 cast" v-for="item in chunk" :key="item.id">
-              <img
-                :src="getProfileUrl(item.profile_path)"
-                alt=""
-                class="img-fluid cast__image"
-              />
+              <img :src="getProfileUrl(item.profile_path)" alt="" class="img-fluid cast__image" />
               <p class="cast__name">{{ item.name }}</p>
             </div>
           </div>
@@ -76,17 +66,9 @@
       <div class="container">
         <div class="videos">
           <h3 class="pt-5 pb-3">Trailers</h3>
-          <carousel
-            :per-page="1"
-            :navigate-to="someLocalProperty"
-            :mouse-drag="false"
-          >
+          <carousel :per-page="1" :navigate-to="someLocalProperty" :mouse-drag="false">
             <slide v-for="video in movieVideos" :key="video.id">
-              <youtube
-                class="pt-3 videos__slide d-flex justify-content-center"
-                @click="show"
-                :video-id="video.key"
-              ></youtube>
+              <youtube class="pt-3 videos__slide d-flex justify-content-center" @click="show" :video-id="video.key"></youtube>
             </slide>
           </carousel>
         </div>
